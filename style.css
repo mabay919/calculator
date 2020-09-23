@@ -7,6 +7,8 @@ body {
   justify-content: center;
   padding-top: 40px;
   background-image: url(https://i.pinimg.com/originals/fe/8c/81/fe8c8176c82c5daec8d7cfe928a42aaa.jpg);
+    background-repeat: no-repeat;
+
 }
 .calc {
   background-color: rgba(51, 51, 51, 0.3);
@@ -104,7 +106,7 @@ button {
 }
 
 .alert {
-  background-image: url(/assets/ups.jpg);
+  background-image: url(assets/ups.jpg);
   background-position: center;
   background-size: cover;
   width: 100vw;
