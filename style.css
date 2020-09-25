@@ -149,7 +149,7 @@ button {
 }
 
 .alert {
-  background-image: url(/assets/ups.jpg);
+  background-image: url(./assets/ups.jpg);
   background-position: center;
   background-size: cover;
   width: 100vw;
