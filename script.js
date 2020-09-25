@@ -2,10 +2,12 @@ let numbers = document.querySelectorAll(".number"),
   operations = document.querySelectorAll(".operator"),
   decimalBtn = document.getElementById("decimal"),
   clearBtns = document.querySelectorAll(".clear-btn"),
-  howWorcBtn = document.getElementById("howWorkBtn"),
+  howWorkBtn = document.getElementById("howWorkBtn"),
   resultBtn = document.getElementById("result"),
   display = document.getElementById("display"),
+  minusButton = document.querySelector(".minus"),
   MemoryCurrentNumber = 0,
+  squareRootBtn = document.querySelector(".squareRoot"),
   MemoryNewNumber = false,
   MemoryPendingOperation = "";
 
@@ -31,11 +33,37 @@ for (var i = 0; i < clearBtns.length; i += 1) {
   });
 }
 
+squareRootBtn.addEventListener("click", squareRoot);
+
+minusButton.addEventListener("click", negativeNumber);
+
 decimalBtn.addEventListener("click", decimal);
 
-howWorcBtn.addEventListener("click", howWork);
+howWorkBtn.addEventListener("click", howWork);
 
 resultBtn.addEventListener("click", result);
+
+function squareRoot() {
+  let localSquareMemory = display.value;
+  if (parseFloat(localSquareMemory) >= 0) {
+    MemoryNewNumber = true;
+    localSquareMemory = Math.sqrt(parseFloat(display.value));
+    display.value = +localSquareMemory.toFixed(10);
+    MemoryCurrentNumber = display.value;
+    MemoryNewNumber = false;
+  } else {
+    display.value = "Аауууу=) Error!=(";
+    MemoryNewNumber = true;
+  }
+}
+
+function negativeNumber() {
+  if (MemoryNewNumber) {
+    display.value = "-";
+    MemoryNewNumber = false;
+  }
+  display.value = "-";
+}
 
 function numberPress(number) {
   if (MemoryNewNumber) {
@@ -52,6 +80,7 @@ function numberPress(number) {
 
 function operation(oper) {
   let localMemoryOperation = display.value;
+  console.log(localMemoryOperation);
 
   if (MemoryNewNumber && MemoryPendingOperation !== "=") {
     display.value = MemoryCurrentNumber;
@@ -62,17 +91,16 @@ function operation(oper) {
     } else if (MemoryPendingOperation === "-") {
       MemoryCurrentNumber -= parseFloat(localMemoryOperation);
     } else if (MemoryPendingOperation === "*") {
+      console.log(MemoryCurrentNumber);
       MemoryCurrentNumber *= parseFloat(localMemoryOperation);
     } else if (MemoryPendingOperation === "/") {
       MemoryCurrentNumber /= parseFloat(localMemoryOperation);
     } else if (MemoryPendingOperation === "**") {
       MemoryCurrentNumber **= parseFloat(localMemoryOperation);
-    } else if (MemoryPendingOperation === "√") {
-      MemoryCurrentNumber = Math.sqrt(parseFloat(localMemoryOperation));
     } else {
       MemoryCurrentNumber = parseFloat(localMemoryOperation);
     }
-    display.value = MemoryCurrentNumber;
+    display.value = +MemoryCurrentNumber.toFixed(10);
     MemoryPendingOperation = oper;
   }
 
@@ -108,8 +136,14 @@ function clear(id) {
 function howWork() {
   console.log("how");
 }
-document.querySelector(".how-work").onclick = function () {
+document.querySelector(".joke").onclick = function () {
   document.querySelector(".calc").classList.add("hidden");
   document.querySelector(".how-work").classList.add("hidden");
   document.querySelector(".alert").classList.add("visible");
+};
+document.querySelector(".how-work").onclick = function () {
+  document.querySelector(".examples").classList.remove("hidden");
+};
+document.querySelector(".close").onclick = function () {
+  document.querySelector(".examples").classList.add("hidden");
 };
